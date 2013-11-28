@@ -47,7 +47,7 @@ class GitLabPlugin(IssuePlugin):
     project_conf_form = GitLabOptionsForm
 
     def is_configured(self, request, project, **kwargs):
-        return bool(self.get_option('repo', project))
+        return bool(self.get_option('gitlab_repo', project))
 
     def get_new_issue_title(self, **kwargs):
         return 'Create GitLab Issue'
@@ -56,11 +56,11 @@ class GitLabPlugin(IssuePlugin):
 
         url = group.project.gitlab_url
         token = group.project.gitlab_token
-        repo_path = group.project.gitlab_repo
+        repo = group.project.gitlab_repo
         if repo_path.find('/') == -1:
-            repo_url = repo_path
+            repo_url = repo
         else:
-            repo_url = repo_path.replace('/', '%2F')
+            repo_url = repo.replace('/', '%2F')
 
         gl = Gitlab(url, token)
 

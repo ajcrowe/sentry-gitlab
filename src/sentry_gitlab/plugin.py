@@ -56,9 +56,14 @@ class GitLabPlugin(IssuePlugin):
 
         url = group.project.gitlab_url
         token = group.project.gitlab_token
-        repo = group.project.gitlab_repo
+        repo_path = group.project.gitlab_repo
+        if repo_path.find('/') == -1:
+            repo_url = repo_path
+        else:
+            repo_url = repo_path.replace('/', '%2F')
 
         gl = Gitlab(url, token)
+
         try:
             gl.auth()
         except GitlabAuthenticationError:
@@ -71,7 +76,7 @@ class GitLabPlugin(IssuePlugin):
             "description": form_data['description']
         })
 
-        proj = gl.Project(id=repo)
+        proj = gl.Project(id=repo_url)
         issue = proj.Issue(data)
         issue.save()
 
@@ -80,7 +85,7 @@ class GitLabPlugin(IssuePlugin):
         return 'GL-%s' % issue_id
 
     def get_issue_url(self, group, issue_id, **kwargs):
-        gitlab_url = self.get_option('gitlab_url', group.project)
-        repo = self.get_option('repo', group.project)
+        url = self.get_option('gitlab_url', group.project)
+        repo = self.get_option('gitlab_repo', group.project)
 
-        return '%s/%s/issues/%s' % (gitlab_url, repo, issue_id)
+        return '%s/%s/issues/%s' % (url, repo, issue_id)

@@ -7,8 +7,6 @@ sentry_gitlab.plugin
 """
 
 from django import forms
-from django.utils import simplejson
-from django.utils.translation import ugettext_lazy as _
 from sentry.plugins.bases.issue import IssuePlugin
 from gitlab import *
 
@@ -17,17 +15,23 @@ import sentry_gitlab
 
 
 class GitLabOptionsForm(forms.Form):
-    gitlab_url = forms.CharField(label=_('GitLab URL'),
+    gitlab_url = forms.CharField(
+        label=_('GitLab URL'),
         widget=forms.TextInput(attrs={'placeholder': 'e.g. https://gitlab.example.com'}),
-        help_text=_('Enter your GitLab URL here'))
+        help_text=_('Enter the URL for your GitLab server'),
+        required=True)
 
-    gitlab_token = forms.CharField(label=_('GitLab Private Token'),
+    gitlab_token = forms.CharField(
+        label=_('GitLab Private Token'),
         widget=forms.TextInput(attrs={'placeholder': 'e.g. g5DWFtLzaztgYFrqhVfE'}),
-        help_text=_('Enter your GitLab Private Token'))
+        help_text=_('Enter your GitLab API token'),
+        required=True)
 
-    gitlab_repo = forms.CharField(label=_('Repository Name'),
-        widget=forms.TextInput(attrs={'placeholder': 'e.g. pancentric/repo'}),
-        help_text=_('Enter your repository name, including the owner.'))
+    gitlab_repo = forms.CharField(
+        label=_('Repository Name'),
+        widget=forms.TextInput(attrs={'placeholder': 'e.g. namespace/repo'}),
+        help_text=_('Enter your repository name, including namespace.'),
+        required=True)
 
 
 class GitLabPlugin(IssuePlugin):
@@ -54,10 +58,10 @@ class GitLabPlugin(IssuePlugin):
 
     def create_issue(self, request, group, form_data, **kwargs):
 
-        url = group.project.gitlab_url
-        token = group.project.gitlab_token
-        repo = group.project.gitlab_repo
-        if repo_path.find('/') == -1:
+        url = self.get_option('gitlab_url', group.project)
+        token = self.get_option('gitlab_token', group.project)
+        repo = self.get_option('gitlab_repo', group.project)
+        if repo.find('/') == -1:
             repo_url = repo
         else:
             repo_url = repo.replace('/', '%2F')

@@ -8,6 +8,7 @@ sentry_gitlab.plugin
 
 from django import forms
 from sentry.plugins.bases.issue import IssuePlugin
+from django.utils.translation import ugettext_lazy as _
 from gitlab import *
 
 import sentry_gitlab

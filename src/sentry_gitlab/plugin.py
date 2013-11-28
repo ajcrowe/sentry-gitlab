@@ -71,10 +71,7 @@ class GitLabPlugin(IssuePlugin):
         except Exception:
             raise forms.ValidationError(_('Error Communicating with GitLab: %s') % (e,))
 
-        data = simplejson.dumps({
-            "title": form_data['title'],
-            "description": form_data['description']
-        })
+        data = ("{'title': '%s', 'description': '%s'}" % (form_data['title'], form_data['description']))
 
         proj = gl.Project(id=repo_url)
         issue = proj.Issue(data)

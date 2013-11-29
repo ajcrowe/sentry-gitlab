@@ -23,7 +23,7 @@ Configure
 
 Once enabled you can configure your settings on each project.
 
-.. image:: https://github.com/pancentric/sentry-gitlab/raw/master/docs/images/settings.png
+![settings](https://github.com/pancentric/sentry-gitlab/raw/master/docs/images/settings.png)
 
 I would recommend you create a specific user for Sentry to use with only `Reporter` priviledges to your projects.
 

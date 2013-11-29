@@ -63,9 +63,9 @@ class GitLabPlugin(IssuePlugin):
         token = self.get_option('gitlab_token', group.project)
         repo = self.get_option('gitlab_repo', group.project)
         if repo.find('/') == -1:
-            repo_url = repo
+            repo_url = str(repo)
         else:
-            repo_url = repo.replace('/', '%2F')
+            repo_url = str(repo.replace('/', '%2F'))
 
         gl = Gitlab(url, token)
 

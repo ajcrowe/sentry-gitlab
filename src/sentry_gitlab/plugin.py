@@ -82,6 +82,8 @@ class GitLabPlugin(IssuePlugin):
         issue = proj.Issue(data)
         issue.save()
 
+        return issue.id
+
 
     def get_issue_label(self, group, issue_id, **kwargs):
         return 'GL-%s' % issue_id

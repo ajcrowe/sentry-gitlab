@@ -71,9 +71,9 @@ class GitLabPlugin(IssuePlugin):
 
         try:
             gl.auth()
-        except GitlabAuthenticationError:
+        except GitlabAuthenticationError as e:
             raise forms.ValidationError(_('Unauthorized: Invalid Private Token: %s') % (e,))
-        except Exception:
+        except Exception as e:
             raise forms.ValidationError(_('Error Communicating with GitLab: %s') % (e,))
 
         data = {'title': form_data['title'], 'description': form_data['description']}

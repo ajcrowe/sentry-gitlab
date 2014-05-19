@@ -24,7 +24,7 @@ install_requires = [
 
 setup(
     name='sentry-gitlab',
-    version='0.1.0',
+    version='0.1.1',
     author='Alex Crowe',
     author_email='alex@pancentric.com',
     url='http://github.com/pancentric/sentry-gitlab',

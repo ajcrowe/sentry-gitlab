@@ -16,6 +16,10 @@ Then run the setup script to install the plugin and it's dependencies.
 
     python setup.py install
 
+Alternatively you can use `pip`
+
+    pip install -e "git+https://github.com/ajcrowe/sentry-gitlab.git@v0.1.0#egg=sentry-gitlab"
+
 Restart Sentry and you should see a new plugin under `manage integrations` for your projects.
 
 Configure

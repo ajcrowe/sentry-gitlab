@@ -34,6 +34,12 @@ class GitLabOptionsForm(forms.Form):
         help_text=_('Enter your repository name, including namespace.'),
         required=True)
 
+    gitlab_labels = forms.CharField(
+        label=_('Issue Labels'),
+        widget=forms.TextInput(attrs={'placeholder': 'e.g. high, bug'}),
+        help_text=_('Enter the labels you want to auto assign to new issues.'),
+        required=False)
+
 
 class GitLabPlugin(IssuePlugin):
     author = 'Pancentric Ltd'
@@ -62,6 +68,7 @@ class GitLabPlugin(IssuePlugin):
         url = self.get_option('gitlab_url', group.project)
         token = self.get_option('gitlab_token', group.project)
         repo = self.get_option('gitlab_repo', group.project)
+        labels = self.get_option('gitlab_labels', group.project)
         if repo.find('/') == -1:
             repo_url = str(repo)
         else:
@@ -76,7 +83,7 @@ class GitLabPlugin(IssuePlugin):
         except Exception as e:
             raise forms.ValidationError(_('Error Communicating with GitLab: %s') % (e,))
 
-        data = {'title': form_data['title'], 'description': form_data['description']}
+        data = {'title': form_data['title'], 'description': form_data['description'], 'labels': labels}
 
         proj = gl.Project(id=repo_url)
         issue = proj.Issue(data)

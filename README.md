@@ -25,7 +25,7 @@ Restart Sentry and you should see a new plugin under `manage integrations` for y
 Configure
 ---------
 
-Once enabled you can configure your settings on each project.
+Once enabled you can configure your settings for the project. You can also include default tags you wish to apply to issues created.
 
 ![settings](https://github.com/pancentric/sentry-gitlab/raw/master/docs/images/settings.png)
 

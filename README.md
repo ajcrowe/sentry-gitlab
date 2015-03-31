@@ -8,7 +8,13 @@ This module used the [sentry-github](https://github.com/getsentry/sentry-github)
 Install
 -------
 
-Clone to repository to your sentry install. 
+Install the package via `pip`
+
+```
+pip install sentry-gitlab
+```
+
+Or you can clone to repository to your sentry install.
 
     git clone https://github.com/pancentric/sentry-gitlab.git
 
@@ -16,16 +22,12 @@ Then run the setup script to install the plugin and it's dependencies.
 
     python setup.py install
 
-Alternatively you can use `pip`
-
-    pip install -e "git+https://github.com/ajcrowe/sentry-gitlab.git@v0.1.0#egg=sentry-gitlab"
-
 Restart Sentry and you should see a new plugin under `manage integrations` for your projects.
 
 Configure
 ---------
 
-Once enabled you can configure your settings on each project.
+Once enabled you can configure your settings for the project. You can also include default tags you wish to apply to issues created.
 
 ![settings](https://github.com/pancentric/sentry-gitlab/raw/master/docs/images/settings.png)
 

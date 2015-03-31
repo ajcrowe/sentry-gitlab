@@ -6,7 +6,7 @@ sentry-gitlab
 An extension for Sentry which integrates with GitLab. Specifically, it allows
 you to easily create issues from events within Sentry.
 
-:copyright: (c) 2012 Pancentric Ltd, see AUTHORS for more details.
+:copyright: (c) 2015 Pancentric Ltd, see AUTHORS for more details.
 :license: BSD, see LICENSE for more details.
 """
 from setuptools import setup, find_packages
@@ -24,10 +24,10 @@ install_requires = [
 
 setup(
     name='sentry-gitlab',
-    version='0.1.1',
+    version='0.2.0',
     author='Alex Crowe',
     author_email='alex@pancentric.com',
-    url='http://github.com/pancentric/sentry-gitlab',
+    url='http://github.com/ajcrowe/sentry-gitlab',
     description='A Sentry extension which integrates with GitLab.',
     long_description=__doc__,
     license='BSD',

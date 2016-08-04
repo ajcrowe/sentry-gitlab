@@ -69,12 +69,8 @@ class GitLabPlugin(IssuePlugin):
         token = self.get_option('gitlab_token', group.project)
         repo = self.get_option('gitlab_repo', group.project)
         labels = self.get_option('gitlab_labels', group.project)
-        if repo.find('/') == -1:
-            repo_url = str(repo)
-        else:
-            repo_url = str(repo.replace('/', '%2F'))
 
-        gl = Gitlab(url, token)
+        gl = gitlab.Gitlab(url, token)
 
         try:
             gl.auth()
@@ -85,8 +81,8 @@ class GitLabPlugin(IssuePlugin):
 
         data = {'title': form_data['title'], 'description': form_data['description'], 'labels': labels}
 
-        proj = gl.Project(id=repo_url)
-        issue = proj.Issue(data)
+        proj = gl.projects.get(repo)
+        issue = proj.issues.create(data)
         issue.save()
 
         return issue.id
